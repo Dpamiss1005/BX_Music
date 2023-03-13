@@ -1,0 +1,44 @@
+<view class="songDetailContainer">
+    <view class="author">
+        {{song.ar[0].name}}
+    </view>
+    <view class="circle"></view>
+
+    <!-- 摇杆 -->
+    <image src="/static/images/song/needle.png" class="needle {{isPlay?'needleRotate':''}}"/>
+    <!-- 磁盘 -->
+    <view class="discContainer {{isPlay?'discAnimation':''}}" >
+        <image src="/static/images/song/disc.png" class="disc"/>
+        <!-- 歌曲封面图 -->
+        <image src="{{song.al.picUrl}}" class="musicImg"/>
+    </view>
+
+    <!-- 歌词 -->
+    <view class="scrollLrc">
+        <text>{{currentLyric}}</text>
+    </view>
+
+    <!-- 进度条控制区域 -->
+    <view class="progressControl">
+        <text>{{currentTime}}</text>
+        <!-- 总的进度条 -->
+        <view class="barControl">
+            <!-- 实时进度条 -->
+            <view class="audio-currentTime-Bar" style="width: {{currentWidth+'rpx'}};">
+                <!-- 小圆球 -->
+                <view class="audio-circle">
+                </view>
+            </view>
+        </view>
+        <text>{{durationTime}}</text>
+    </view>
+
+    <!-- 底部控制播放区域 -->
+    <view class="musicControl">
+        <text class="iconfont icon-suijibofang"></text>
+        <text class="iconfont icon-shangyishoushangyige" bindtap="handleSwitch" id="pre"></text>
+        <text class="iconfont {{isPlay ? 'icon-zanting':'icon-24gl-playCircle'}} big" bindtap="handleMusicPlay"></text>
+        <text class="iconfont icon-xiayigexiayishou" bindtap="handleSwitch" id="next"></text>
+        <text class="iconfont icon-zhankaicaidan"></text>
+    </view>
+</view>

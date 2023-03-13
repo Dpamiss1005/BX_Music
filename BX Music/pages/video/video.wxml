@@ -2,15 +2,21 @@
     <!-- 头部区域 -->
     <view class="header">
         <image src="../../static/images/video/video.jpg" mode="" />
-        <view class="search">
-            搜索商品
+        <view class="search" bindtap="toSearch">
+            搜索音乐
         </view>
         <image src="../../static/images/logo.png" mode="" />
     </view>
 
     <!-- 导航区域 -->
-    <scroll-view scroll-x class="navScroll" enable-flex>
-        <view class="navItem" wx:for="{{videoGroupList}}" wx:key="id">
+    <scroll-view 
+        scroll-with-animation 
+        enhanced
+        show-scrollbar="flase"
+        scroll-into-view="{{'scroll'+navId}}" 
+        scroll-x class="navScroll" 
+        enable-flex>
+        <view id="{{'scroll'+item.id}}" class="navItem" wx:for="{{videoGroupList}}" wx:key="id">
             <view class="navContent {{navId===item.id?'active':''}}" bindtap="changeNav" id="{{item.id}}">
                 {{item.name}}
             </view>
@@ -18,9 +24,28 @@
     </scroll-view>
 
     <!-- 视频的列表区域 -->
-    <scroll-view scroll-y class="videoList">
+    <scroll-view 
+        scroll-y 
+        bindrefresherrefresh="handlerRefresher"
+        refresher-enabled
+        refresher-triggered="{{isTriggered}}"
+        bindscrolltolower="handleToLower"
+        class="videoList">
         <view class="videoItem" wx:for="{{videoList}}" wx:key="id">
-            <video src="{{item.urlInfo}}"></video>
+            <video src="{{item.urlInfo}}"
+                   bindplay="handlePlay"
+                   id="{{item.data.vid}}"
+                   poster="{{item.data.coverUrl}}"
+                   class="common"
+                   wx:if="{{videoId === item.data.vid}}"
+                   autoplay
+                   object-fit="fill"
+                   bindtimeupdate="handleTimeUpdate"
+                   bindended="handleEnded"
+            ></video>
+            <!-- 性能优化 使用image图片代替video标签 -->
+            <image wx:else src="{{item.data.coverUrl}}" class="common" bindtap="handlePlay" id="{{item.data.vid}}"/>
+
                 <view class="content">
                     {{item.data.title}}
                 </view>
@@ -37,7 +62,7 @@
                             <text class="showCount ">{{item.data.commentCount}}</text>
                         </text>
                         <button class="item btn" open-type="share" data-index="{{index}}">
-                            <text class="iconfont icon-gengduo"></text>
+                            <text class="iconfont icon-gengduo-shuxiang"></text>
                         </button>
                     </view>
                 </view>

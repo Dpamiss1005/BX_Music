@@ -3,3 +3,7 @@
 page {
     height: 100%;
 }
+/* 消除滚动条 */
+::-webkit-scrollbar {
+	display: none;
+}

@@ -1,5 +1,10 @@
 App({
-
+    globalData:{
+        // 是否有音乐在播放
+        isMusicPlay:false,
+        // 音乐id
+        musicId:''
+    },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */

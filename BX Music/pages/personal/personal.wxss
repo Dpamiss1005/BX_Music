@@ -210,4 +210,8 @@
     float: right;
   }
   
-  
+  .logout-btn {
+    margin-top: 5rpx ;
+    color: rgba(0,0,0,.5);
+    border-radius: 5%rpx;
+  }

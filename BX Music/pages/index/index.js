@@ -44,6 +44,25 @@ Page({
         }
     },
 
+    // 跳转至toRecommendSong页面的回调
+    toRecommendSong(){
+        wx.navigateTo({
+          url: '/pages/recommendSong/recommendSong',
+        })
+    },
+
+    toSongDetail(event){
+        wx.navigateTo({
+          url: '/pages/songDetail/songDetail?ids=' + event.currentTarget.id
+        })
+      },
+
+      //跳转到歌单歌曲列表页面
+  toPlayList(event){
+    wx.navigateTo({
+      url: '/pages/playlist/playlist?id=' + event.currentTarget.id
+    })
+  },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

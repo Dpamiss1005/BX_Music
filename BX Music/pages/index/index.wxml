@@ -8,7 +8,7 @@
 
     <!-- 五个图标导航区域 -->
     <view class="navContainer">
-        <view class="navItem">
+        <view class="navItem" bindtap="toRecommendSong">
             <text class="iconfont icon-tuijian2"></text>
             <text>每日推荐</text>
         </view>
@@ -36,9 +36,9 @@
         <NavHeader title="推荐歌曲" nav="为你精心推荐"></NavHeader>
         <!-- 内容区域 -->
         <scroll-view class="recommendScroll" enable-flex scroll-x>
-            <view class="scrollItem" wx:for="{{recommendList}}" wx:key="id">
-                <image src="{{item.picUrl}}" mode="" />
-                <text>{{item.name}}</text>
+            <view wx:for="{{recommendList}}" wx:key="id" wx:for-item="recommendItem" class="scrollItem">
+                <image src="{{recommendItem.picUrl}}" id="{{recommendItem.id}}" bindtap="toPlayList"></image>
+                <text bindtap="toPlayList">{{recommendItem.name}}</text>
             </view>
         </scroll-view>
     </view>
@@ -50,12 +50,12 @@
         <!-- 内容区域 -->
         <swiper class="topListSwiper" next-margin="50rpx" circular>
             <swiper-item wx:for="{{topList}}" wx:key="name">
-                <view class="swiperItem" >
+                <view class="swiperItem">
                     <view class="title">{{item.name}}</view>
                     <view class="musicItem" wx:for="{{item.tracks}}" wx:key="id" wx:for-item="musicItem">
                         <image src="{{musicItem.al.picUrl}}" mode="" />
                         <text class="count">{{index+1}}</text>
-                        <text class="musicName">{{musicItem.name}}</text>
+                        <text class="musicName" bindtap="toSongDetail" id="{{musicItem.id}}">{{musicItem.name}}</text>
                     </view>
                 </view>
             </swiper-item>

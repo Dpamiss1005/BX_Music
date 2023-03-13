@@ -14,7 +14,8 @@ Page({
         // 用户信息
         userInfo:{},
         // 用户的播放记录
-        recentPlayList:[]
+        recentPlayList:[],
+        isLogin: false //控制退出登录显示
     },
 
     /**
@@ -26,7 +27,8 @@ Page({
         if(userInfo){
             // 更新userinfo的状态
             this.setData({
-                userInfo:JSON.parse(userInfo)
+                userInfo:JSON.parse(userInfo),
+                isLogin: true
             })
 
             // 获取用户播放记录
@@ -83,6 +85,33 @@ Page({
         })
     },
 
+     //点击跳转播放最近播放列表歌曲
+  toSongDetail(event){
+      console.log(event.currentTarget);
+    wx.navigateTo({
+      url: '/pages/songDetail/songDetail?ids=' + event.currentTarget.id
+    })
+  },
+
+   //退出登录
+   logout(){
+    //服务端退出登录状态
+    let status = request('/logout');
+    // console.log(status)
+    //删除客户端信息
+    wx.removeStorageSync('userInfo')
+    this.setData({
+      userInfo: {},
+      isLogin: false
+    })
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
+    wx.showToast({
+      title: '退出登录',
+      icon: 'success'
+    })
+  },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
